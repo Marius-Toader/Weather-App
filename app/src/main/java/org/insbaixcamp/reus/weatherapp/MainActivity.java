@@ -191,11 +191,11 @@ public class MainActivity extends AppCompatActivity {
     class forecastTask extends AsyncTask<String, Void, String> {
         @Override
         protected String doInBackground(String... args) {
-            String response = HttpRequest.executeGet("https://api.openweathermap.org/data/2.5/forecast?lat=" + latitude
-                    + "&lon=" + longitude + "&units=metric&appid=" + API);
+            String response = HttpRequest.executeGet("https://pro.openweathermap.org/data/2.5/forecast/daily?lat=" + latitude
+                    + "&lon=" + longitude + "&cnt=3&units=metric&appid=" + API);
 
-            String a = "https://api.openweathermap.org/data/2.5/forecast?lat=" + latitude
-                    + "&lon=" + longitude + "&units=metric&appid=" + API;
+            String a = "https://pro.openweathermap.org/data/2.5/forecast/daily?lat=" + latitude
+                    + "&lon=" + longitude + "&cnt=3&units=metric&appid=" + API;
 
             Log.d("hola",a);
 
@@ -210,52 +210,33 @@ public class MainActivity extends AppCompatActivity {
 
                 // Day 1
                 JSONObject day1 = list.getJSONObject(0);
-
-                JSONObject main = day1.getJSONObject("main");
-
                 JSONObject weather1 = day1.getJSONArray("weather").getJSONObject(0);
-                String temp1 = Math.round(main.getInt("temp")) + "ºC";
+                JSONObject temp1 = day1.getJSONObject("temp");
 
                 String status1 = weather1.getString("description");
-
-
-                String tempMin = Math.round(main.getInt("temp_min")) + "ºC";
-                String tempMax = Math.round(main.getInt("temp_max")) + "ºC";
+                int temperature = Math.round(temp1.getInt("day"));
+                int tempMin = Math.round(temp1.getInt("min"));
+                int tempMax = Math.round(temp1.getInt("max"));
 
                 // Day 2
                 JSONObject day2 = list.getJSONObject(1);
-                JSONObject main2 = day2.getJSONObject("main");
                 JSONObject weather2 = day2.getJSONArray("weather").getJSONObject(0);
-                String temp2 = Math.round(main2.getInt("temp")) + "ºC";
+                JSONObject temp2 = day2.getJSONObject("temp");
 
                 String status2 = weather2.getString("description");
+                int temperature2 = Math.round(temp2.getInt("day"));
+                int tempMin2 = Math.round(temp2.getInt("min"));
+                int tempMax2 = Math.round(temp2.getInt("max"));
 
-                String tempMin2 = Math.round(main2.getInt("temp_min")) + "ºC";
-                String tempMax2 = Math.round(main2.getInt("temp_max")) + "ºC";
-
-//                int temperature2 = Math.round(temp2.getInt("day"));
-//                int temperaturemin2 = Math.round(temp2.getInt("min"));
-//                int temperaturemax2 = Math.round(temp2.getInt("max"));
-//
-                 //Day 3
+                // Day 3
                 JSONObject day3 = list.getJSONObject(2);
-                JSONObject main3 = day3.getJSONObject("main");
                 JSONObject weather3 = day3.getJSONArray("weather").getJSONObject(0);
-                String temp3 = Math.round(main3.getInt("temp")) + "ºC";
+                JSONObject temp3 = day3.getJSONObject("temp");
 
                 String status3 = weather3.getString("description");
-
-                String tempMin3 = Math.round(main3.getInt("temp_min")) + "ºC";
-                String tempMax3 = Math.round(main3.getInt("temp_max")) + "ºC";
-
-//                JSONObject day3 = list.getJSONObject(2);
-//                JSONObject weather3 = day3.getJSONArray("weather").getJSONObject(0);
-//                JSONObject temp3 = day3.getJSONObject("temp");
-
-//                String status3 = weather3.getString("description");
-//                int temperature3 = Math.round(temp3.getInt("day"));
-//                int temperaturemin3 = Math.round(temp3.getInt("min"));
-//                int temperaturemax3 = Math.round(temp3.getInt("max"));
+                int temperature3 = Math.round(temp3.getInt("day"));
+                int tempMin3 = Math.round(temp3.getInt("min"));
+                int tempMax3 = Math.round(temp3.getInt("max"));
 
                 // Obtener la fecha actual
                 Calendar calendar = Calendar.getInstance();
@@ -291,18 +272,18 @@ public class MainActivity extends AppCompatActivity {
                 tvstatus1.setText(status1.toUpperCase());
                 tvstatus2.setText(status2.toUpperCase());
                 tvstatus3.setText(status3.toUpperCase());
-                tvtemp1.setText(temp1);
-                tvtemp2.setText(temp2);
-                tvtemp3.setText(temp3);
+                tvtemp1.setText(temperature + "ºC");
+                tvtemp2.setText(temperature2 + "ºC");
+                tvtemp3.setText(temperature3 + "ºC");
 
-                tvtemp_max1.setText("Max Temp: " + tempMax);
-                tvtemp_min1.setText("Min Temp: " + tempMin);
+                tvtemp_max1.setText("Max Temp: " + tempMax + "ºC");
+                tvtemp_min1.setText("Min Temp: " + tempMin + "ºC");
 
-                tvtemp_max2.setText("Max Temp: " + tempMax2);
-                tvtemp_min2.setText("Min Temp: " + tempMin2);
+                tvtemp_max2.setText("Max Temp: " + tempMax2 + "ºC");
+                tvtemp_min2.setText("Min Temp: " + tempMin2 + "ºC");
 
-                tvtemp_max3.setText("Max Temp: " + tempMax3);
-                tvtemp_min3.setText("Min Temp: " + tempMin3);
+                tvtemp_max3.setText("Max Temp: " + tempMax3 + "ºC");
+                tvtemp_min3.setText("Min Temp: " + tempMin3 + "ºC");
 
             } catch (JSONException e) {
                 Log.e("forecastTask", "JSON exception", e);
