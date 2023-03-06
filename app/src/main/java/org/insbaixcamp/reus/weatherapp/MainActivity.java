@@ -35,7 +35,7 @@ public class MainActivity extends AppCompatActivity {
     TextView addressTxt, updated_atTxt, statusTxt, tempTxt, temp_minTxt, temp_maxTxt, sunriseTxt,
             sunsetTxt, windTxt, pressureTxt, humidityTxt;
 
-    TextView
+    //TextView
 
     private FusedLocationProviderClient fusedLocationClient;
 
