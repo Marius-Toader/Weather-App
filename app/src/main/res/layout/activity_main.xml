@@ -38,14 +38,14 @@
 
         <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="197dp"
+            android:layout_height="wrap_content"
             android:layout_above="@+id/detailsContainer"
             android:layout_marginBottom="80dp"
             android:orientation="horizontal">
 
             <LinearLayout
                 android:id="@+id/overView1"
-                android:layout_width="120dp"
+                android:layout_width="115dp"
                 android:layout_height="match_parent"
                 android:layout_above="@+id/detailsContainer"
                 android:layout_marginBottom="0dp"
@@ -108,7 +108,7 @@
 
             <LinearLayout
                 android:id="@+id/overView2"
-                android:layout_width="120dp"
+                android:layout_width="115dp"
                 android:layout_height="match_parent"
                 android:layout_above="@+id/detailsContainer"
                 android:layout_marginBottom="0dp"
@@ -171,7 +171,7 @@
 
             <LinearLayout
                 android:id="@+id/overView3"
-                android:layout_width="120dp"
+                android:layout_width="115dp"
                 android:layout_height="match_parent"
                 android:layout_above="@+id/detailsContainer"
                 android:layout_marginBottom="0dp"
@@ -227,6 +227,7 @@
                         android:id="@+id/temp_max3"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
+                        android:layout_marginBottom="5dp"
                         android:text="Max Temp: 31ºC" />
                 </LinearLayout>
 
