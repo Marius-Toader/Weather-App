@@ -35,6 +35,8 @@ public class MainActivity extends AppCompatActivity {
     TextView addressTxt, updated_atTxt, statusTxt, tempTxt, temp_minTxt, temp_maxTxt, sunriseTxt,
             sunsetTxt, windTxt, pressureTxt, humidityTxt;
 
+    TextView
+
     private FusedLocationProviderClient fusedLocationClient;
 
     @Override
@@ -65,16 +67,9 @@ public class MainActivity extends AppCompatActivity {
             // Si ha otorgado permisos, obtén la ubicación actual
             fusedLocationClient.getLastLocation().addOnSuccessListener(this, location -> {
                 if (location != null) {
-                    // Obtiene la ubicación actual y la almacena en la variable CITY
+                    // Obtiene la ubicación actual y la almacena en las variables
                     latitude = location.getLatitude();
                     longitude = location.getLongitude();
-                    //Log.d("CITY", latitude + " " + longitude);
-                   // CITY = String.format(Locale.US, "%.2f,%.2f", latitude, longitude);
-
-                    lat = String.format(Locale.US, "%.2f", latitude);
-                    lng = String.format(Locale.US, "%.2f", longitude);
-
-                    Log.d("CITY", lat + " " + lng);
 
                     // Llama al método weatherTask para obtener el clima actual de la ubicación actual
                     new weatherTask().execute();
@@ -101,15 +96,9 @@ public class MainActivity extends AppCompatActivity {
         }
 
         protected String doInBackground(String... args) {
-            //https://api.openweathermap.org/data/2.5/weather?q=
-//            Log.d("CITY", CITY);
-            String response = HttpRequest.executeGet("https://api.openweathermap.org/data/2.5/weather?lat=" + lat
-                    + "&lon=" + lng + "&units=metric&appid=" + API);
 
-            String url = "https://api.openweathermap.org/data/2.5/weather?lat=" + lat
-                    + "&lon=" + lng + "&units=metric&appid=" + API;
-
-            Log.d("CITY", url);
+            String response = HttpRequest.executeGet("https://api.openweathermap.org/data/2.5/weather?lat=" + latitude
+                    + "&lon=" + longitude + "&units=metric&appid=" + API);
             return response;
         }
 
