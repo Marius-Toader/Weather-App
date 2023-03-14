@@ -138,7 +138,7 @@ public class MainActivity extends AppCompatActivity {
                 JSONObject weather = jsonObj.getJSONArray("weather").getJSONObject(0);
 
                 Long updatedAt = jsonObj.getLong("dt");
-                String updatedAtText = "Actualizado el: " + new SimpleDateFormat("dd/MM/yyyy HH:mm", Locale.forLanguageTag("es-ES"))
+                String updatedAtText = getString(R.string.updated_at) + " " + new SimpleDateFormat("dd/MM/yyyy HH:mm", Locale.forLanguageTag("es-ES"))
                         .format(new Date(updatedAt * 1000));
 
                 int temperature = Math.round(main.getInt("temp"));
