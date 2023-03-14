@@ -3,4 +3,5 @@
     <string name="errorUbicacion">No se pudo obtener la ubicación actual</string>
     <string name="location_exemple">Reus, ES</string>
     <string name="updated_at">Actualizado el:</string>
+    <string name="error">Activa la ubicación para ver el tiempo y después reinicia la app</string>
 </resources>

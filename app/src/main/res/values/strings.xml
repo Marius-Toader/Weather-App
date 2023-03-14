@@ -3,4 +3,5 @@
     <string name="errorUbicacion">Cannot obtain current location</string>
     <string name="location_exemple">Reus, ES</string>
     <string name="updated_at">Updated at:</string>
+    <string name="error">Turn on the location to see the weather and then restart the app</string>
 </resources>

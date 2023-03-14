@@ -1,11 +1,5 @@
 package org.insbaixcamp.reus.weatherapp;
 
-import androidx.activity.result.ActivityResultLauncher;
-import androidx.activity.result.contract.ActivityResultContracts;
-import androidx.appcompat.app.AppCompatActivity;
-import androidx.core.app.ActivityCompat;
-import androidx.core.content.ContextCompat;
-
 import android.Manifest;
 import android.content.pm.PackageManager;
 import android.os.AsyncTask;
@@ -13,6 +7,10 @@ import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
 import android.widget.TextView;
+
+import androidx.appcompat.app.AppCompatActivity;
+import androidx.core.app.ActivityCompat;
+import androidx.core.content.ContextCompat;
 
 import com.google.android.gms.location.FusedLocationProviderClient;
 import com.google.android.gms.location.LocationServices;
@@ -25,7 +23,6 @@ import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.Locale;
-import java.util.concurrent.TimeUnit;
 
 public class MainActivity extends AppCompatActivity {
 //    String CITY = "madrid,es";
@@ -39,7 +36,7 @@ public class MainActivity extends AppCompatActivity {
             sunsetTxt, windTxt, pressureTxt, humidityTxt;
 
     TextView tvstatus1, tvtemp1, tvtemp_min1, tvtemp_max1, tvstatus2, tvtemp2, tvtemp_min2, tvtemp_max2,
-             tvstatus3, tvtemp3, tvtemp_min3, tvtemp_max3, tvday , tvday2, tvday3;
+             tvstatus3, tvtemp3, tvtemp_min3, tvtemp_max3, tvday , tvday2, tvday3, tvLoc ;
 
     private FusedLocationProviderClient fusedLocationClient;
 
@@ -79,6 +76,8 @@ public class MainActivity extends AppCompatActivity {
         tvday = findViewById(R.id.day);
         tvday2 = findViewById(R.id.day2);
         tvday3 = findViewById(R.id.day3);
+        tvLoc = findViewById(R.id.tvLocation);
+
 
         // Inicializa el objeto FusedLocationProviderClient
         fusedLocationClient = LocationServices.getFusedLocationProviderClient(this);
@@ -108,6 +107,8 @@ public class MainActivity extends AppCompatActivity {
         new weatherTask().execute();
     }
 
+
+
     class weatherTask extends AsyncTask<String, Void, String> {
         @Override
         protected void onPreExecute() {
@@ -115,22 +116,23 @@ public class MainActivity extends AppCompatActivity {
 
             /* Showing the ProgressBar, Making the main design GONE */
             findViewById(R.id.loader).setVisibility(View.VISIBLE);
-            findViewById(R.id.mainContainer).setVisibility(View.GONE);
             findViewById(R.id.errorText).setVisibility(View.GONE);
+            findViewById(R.id.mainContainer).setVisibility(View.GONE);
         }
 
         protected String doInBackground(String... args) {
 
-            String response = HttpRequest.executeGet("https://api.openweathermap.org/data/2.5/weather?lat=" + latitude
+            return HttpRequest.executeGet("https://api.openweathermap.org/data/2.5/weather?lat=" + latitude
                     + "&lon=" + longitude + "&units=metric&appid=" + API);
 
-
-            return response;
         }
 
         @Override
         protected void onPostExecute(String result) {
             try {
+
+                findViewById(R.id.errorText).setVisibility(View.GONE);
+
                 JSONObject jsonObj = new JSONObject(result);
                 JSONObject main = jsonObj.getJSONObject("main");
                 JSONObject sys = jsonObj.getJSONObject("sys");
@@ -183,7 +185,7 @@ public class MainActivity extends AppCompatActivity {
 
             } catch (JSONException e) {
                 findViewById(R.id.loader).setVisibility(View.GONE);
-                //findViewById(R.id.errorText).setVisibility(View.VISIBLE);
+                findViewById(R.id.errorText).setVisibility(View.VISIBLE);
             }
         }
     }
@@ -241,9 +243,6 @@ public class MainActivity extends AppCompatActivity {
                 // Obtener la fecha actual
                 Calendar calendar = Calendar.getInstance();
                 calendar.add(Calendar.DAY_OF_YEAR, 1);
-
-                // Obtener el día de la semana como un número (1-7)
-                int dayOfWeek = calendar.get(Calendar.DAY_OF_WEEK);
 
                 // Convertir el número del día de la semana a una cadena de caracteres
                 // (Lunes, Martes, Miércoles, Jueves, Viernes, Sábado, Domingo)
